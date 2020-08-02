@@ -25,7 +25,4 @@ public class TestConfig implements CommandLineRunner{
 
 		userRepository.saveAll(Arrays.asList(u1, u2)); // Recebe uma Lista de obj e salva no Banco de Dados
 	}
-	
-	
-
 }

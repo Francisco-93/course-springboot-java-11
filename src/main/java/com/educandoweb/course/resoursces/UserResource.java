@@ -1,21 +1,35 @@
 package com.educandoweb.course.resoursces;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.educandoweb.course.entities.User;
+import com.educandoweb.course.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
 	
+	@Autowired
+	private UserService service;
+	
 	
 	//ResponseEntity é um tipo específico para retornar respostas de requisições web
 	@GetMapping
-	public ResponseEntity<User> findAll(){
-		User u = new User(1L, "Francisco", "francisco.fro.agui@gmail.com", "994011975", "237461");
-		return ResponseEntity.ok().body(u);
+	public ResponseEntity<List<User>> findAll(){
+		List<User> list = service.findAll();
+		return ResponseEntity.ok(list);
+	}
+	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id){
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 }
